@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-neutral-400 dark:scrollbar-track-neutral-900;
+  }
+}
+
+@layer components {
+  .customBorder {
+    @apply border-neutral-200 dark:border-neutral-700;
+  }
+
+  .customHeaderIcon {
+    @apply p-2 h-10 w-10 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-full transition cursor-pointer text-neutral-600 dark:text-neutral-300;
+  }
+
+  .customPostIcon {
+    @apply p-2 h-9 w-9 sm:h-10 sm:w-10 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-xl transition cursor-pointer text-neutral-600 dark:text-neutral-300;
+  }
+
+  .customModalIcon {
+    @apply p-2 h-10 w-10 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-full transition cursor-pointer text-neutral-600 dark:text-neutral-300;
+  }
+
+  .customFooterIcon {
+    @apply p-2 h-10 w-10 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-2xl transition cursor-pointer text-neutral-600 dark:text-neutral-300;
+  }
+  .customProfileIcon {
+    @apply p-2 h-9 w-9 sm:h-10 sm:w-10 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-xl transition cursor-pointer;
+  }
+}
