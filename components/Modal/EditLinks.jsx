@@ -122,7 +122,7 @@ const EditLinks = ({ title }) => {
                         <IoLogoTwitter className="h-5 w-5 mx-2 text-neutral-400 dark:text-neutral-500" />
                         <input
                           type="text"
-                          placeholder={profile?.social.twitter}
+                          placeholder={profile?.social?.twitter}
                           className="w-full outline-none p-2 bg-transparent"
                           onChange={handleChange}
                           name="twitter"
@@ -133,7 +133,7 @@ const EditLinks = ({ title }) => {
                         <IoLogoInstagram className="h-5 w-5 mx-2 text-neutral-400 dark:text-neutral-500" />
                         <input
                           type="text"
-                          placeholder={profile?.social.instagram}
+                          placeholder={profile?.social?.instagram}
                           className="w-full outline-none p-2 bg-transparent"
                           onChange={handleChange}
                           name="instagram"
@@ -144,7 +144,7 @@ const EditLinks = ({ title }) => {
                         <IoLogoFacebook className="h-5 w-5 mx-2 text-neutral-400 dark:text-neutral-500" />
                         <input
                           type="text"
-                          placeholder={profile?.social.facebook}
+                          placeholder={profile?.social?.facebook}
                           className="w-full outline-none p-2 bg-transparent"
                           onChange={handleChange}
                           name="facebook"
@@ -163,7 +163,7 @@ const EditLinks = ({ title }) => {
                         <IoMdLink className="h-5 w-5 mx-2 text-neutral-400 dark:text-neutral-500" />
                         <input
                           type="text"
-                          placeholder={profile?.social.others}
+                          placeholder={profile?.social?.others}
                           className="w-full outline-none p-2 bg-transparent"
                           onChange={handleChange}
                           name="others"

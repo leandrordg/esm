@@ -6,13 +6,13 @@ import { FcGoogle } from 'react-icons/fc';
 import { VscLoading } from 'react-icons/vsc';
 import { auth } from '../../services/firebase';
 
-const Signin = ({ title, pX, pY }) => {
+const Signin = ({ title, pX, pY, width }) => {
   const [signInWithGoogle, loading] = useSignInWithGoogle(auth);
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <Menu className={`px-${pX} py-${pY}`}>
+      <Menu className={`px-${pX} py-${pY} w-${width}`}>
         <Menu.Button onClick={() => setIsOpen(true)}>{title}</Menu.Button>
       </Menu>
 

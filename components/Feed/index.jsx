@@ -69,7 +69,7 @@ const FeedContent = () => {
             ))
           ) : (
             <div
-              className={`flex flex-col items-start p-4 space-y-2 ${
+              className={`flex flex-col items-center md:items-start p-4 space-y-2 ${
                 profile?.wallpaperURL &&
                 'bg-white dark:bg-neutral-900 sm:rounded-xl'
               }`}

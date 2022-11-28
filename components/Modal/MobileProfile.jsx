@@ -128,7 +128,7 @@ const MobileProfile = () => {
             </div>
           </Menu.Button>
         ) : (
-          <Signin title="Entrar agora" pX={6} pY={2} />
+            <Signin title="Entrar agora" pY={4} width='full' />
         )}
       </Menu>
 

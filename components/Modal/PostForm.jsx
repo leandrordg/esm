@@ -131,7 +131,7 @@ const PostForm = ({ type }) => {
       >
         <div className="relative">
           {type === 'home' ? (
-            <Menu.Button onClick={() => setIsOpen(true)} className='bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white w-full p-2 px-4 sm:px-6 rounded-full md:rounded-lg text-xs sm:text-sm transition'>
+            <Menu.Button onClick={() => setIsOpen(true)} className='bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white w-full p-2 px-6 sm:px-8 rounded-lg text-xs sm:text-sm transition'>
               Criar agora
             </Menu.Button>
           ) : (

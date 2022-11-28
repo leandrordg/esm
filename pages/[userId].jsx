@@ -8,6 +8,7 @@ import {
   query,
   where,
 } from 'firebase/firestore';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -70,6 +71,15 @@ const UserPage = () => {
 
   return (
     <>
+      <Head>
+        <title>ESM - @{userId}</title>
+        <meta
+          name="description"
+          content="ESM - Página de Perfil do Usuário"
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
       <Header />
 
       {myProfile?.wallpaperURL && (
@@ -86,7 +96,7 @@ const UserPage = () => {
           }}
         />
       )}
-      
+
       <main className="flex flex-col md:flex-row max-w-7xl mx-auto md:space-y-0 md:space-x-5 lg:space-x-10 xl:space-x-20 2xl:space-x-32 sm:p-4 my-2">
         <div className="flex flex-col w-full max-w-3xl space-y-2">
           <div className="flex items-center justify-between bg-white dark:bg-neutral-900 p-2 rounded-lg">
