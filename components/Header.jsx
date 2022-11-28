@@ -73,7 +73,7 @@ export default function Header() {
             {user ? (
               <div className="flex items-center space-x-1">
                 <PostForm />
-                <IoIosNotificationsOutline className="customHeaderIcon" />
+                {/* <IoIosNotificationsOutline className="customHeaderIcon" /> */}
               </div>
             ) : (
               <Signin title="Entrar" />

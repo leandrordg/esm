@@ -14,7 +14,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollection } from 'react-firebase-hooks/firestore';
 import {
   IoLogoFacebook,
   IoLogoInstagram,
@@ -180,7 +179,7 @@ const UserPage = () => {
                   )}
                 </div>
               </div>
-              <div className="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white px-6 py-1 w-full rounded-lg transition mt-2">
+              <div className="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white px-6 py-1 w-full rounded-lg transition mt-2 text-center">
                 {profile[0]?.user === myProfile?.user ? (
                   <EditProfile title="Editar perfil" perfil={myProfile} />
                 ) : (

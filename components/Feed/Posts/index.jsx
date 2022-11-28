@@ -1,15 +1,13 @@
-import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
+import { doc, onSnapshot } from 'firebase/firestore';
 import moment from 'moment/moment';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { BsHeart } from 'react-icons/bs';
 import { auth, firestore } from '../../../services/firebase';
-import Comments from '../../Modal/Comments';
 import AddLike from '../../Modal/AddLike';
+import Comments from '../../Modal/Comments';
 import DeletePost from '../../Modal/Delete';
-import { doc, onSnapshot } from 'firebase/firestore';
 
 const Posts = ({ post }) => {
   const [user] = useAuthState(auth);
@@ -29,11 +27,11 @@ const Posts = ({ post }) => {
         !post.background && 'bg-white dark:bg-neutral-900'
       }`}
     >
-      {post.background && (
+      {post?.background && (
         <Image
           className="absolute w-full h-full object-cover -z-10"
-          src={post.background}
-          alt={post.background}
+          src={post?.background}
+          alt={post?.background}
           priority
           width={200}
           height={200}
@@ -46,8 +44,8 @@ const Posts = ({ post }) => {
             {post?.photoURL && (
               <Image
                 className="rounded-full w-8 sm:w-10 cursor-pointer border-2 customBorder text-xs"
-                src={post.photoURL}
-                alt={post.displayName}
+                src={profile?.photoURL}
+                alt={profile?.displayName}
                 width={100}
                 height={100}
                 quality={100}
@@ -67,11 +65,6 @@ const Posts = ({ post }) => {
           <AddLike post={post} />
           <Comments post={post} />
           {post.isModerator === user?.uid && <DeletePost post={post} />}
-          <EllipsisVerticalIcon
-            className={`customPostIcon z-10 ${
-              post.background && 'bg-white dark:bg-neutral-900'
-            }`}
-          />
         </div>
 
         {/* Right Side */}

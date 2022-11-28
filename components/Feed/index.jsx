@@ -4,6 +4,7 @@ import {
   limit,
   onSnapshot,
   orderBy,
+  query,
   where,
 } from 'firebase/firestore';
 import Image from 'next/image';
@@ -22,10 +23,8 @@ import Posts from './Posts';
 const FeedContent = () => {
   const [user] = useAuthState(auth);
   const [profile, setProfile] = useState();
-  const [posts, loading] = useCollection(
-    collection(firestore, 'posts'),
-    orderBy('createdAt', 'desc')
-  );
+  const [posts, setPosts] = useState();
+  const [loading, setLoading] = useState(false);
   const [value] = useCollection(
     collection(firestore, 'users'),
     where('uid', '!=', user?.uid),
@@ -42,6 +41,23 @@ const FeedContent = () => {
       setProfile();
     }
   }, [user]);
+
+  useEffect(() => {
+    setLoading(true);
+
+    const unsub = onSnapshot(
+      query(collection(firestore, 'posts'), orderBy('createdAt', 'desc')),
+      (snapshot) => {
+        setPosts(snapshot);
+      }
+    );
+
+    setLoading(false);
+
+    return () => {
+      unsub();
+    };
+  }, []);
 
   return (
     <>

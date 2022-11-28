@@ -55,8 +55,8 @@ const Comments = ({ post }) => {
 
   useEffect(() => {
     if (user) {
-      onSnapshot(doc(firestore, 'users', user.uid), (doc) => {
-        setProfile(doc.data());
+      onSnapshot(doc(firestore, 'users', user.uid), (snapshot) => {
+        setProfile(snapshot.data());
       });
     } else {
       setProfile();
@@ -142,33 +142,45 @@ const Comments = ({ post }) => {
                             className="flex items-start py-2"
                           >
                             <Link
-                              href={`/${comment.data().user}`}
+                              href={`/${
+                                comment.data().isModerator === profile?.uid
+                                  ? profile?.user
+                                  : comment.data().user
+                              }`}
                               className="min-h-[40px] min-w-[40px]"
                             >
                               <Image
                                 className="rounded-full cursor-pointer"
-                                src={comment.data().photoURL}
-                                alt={comment.data().displayName}
+                                src={
+                                  comment.data().isModerator === profile?.uid
+                                    ? profile?.photoURL
+                                    : comment.data().photoURL
+                                }
+                                alt={
+                                  comment.data().isModerator === profile?.uid
+                                    ? profile?.displayName
+                                    : comment.data().displayName
+                                }
                                 width={40}
                                 height={40}
                               />
                             </Link>
                             <div className="flex flex-col items-start text-left mx-2 w-full">
-                              <div className="flex items-start w-full">
-                                <div className="flex flex-col items-start w-full">
-                                  <span className='text-sm sm:text-base font-semibold'>
-                                    {comment.data().displayName} • @
-                                    {comment.data().user}
-                                  </span>
-                                  <span className="text-xs font-normal text-neutral-600 dark:text-neutral-300">
-                                    {moment(
-                                      new Date(
-                                        comment.data().createdAt?.toDate()
-                                      )
-                                    ).fromNow()}
-                                  </span>
-                                </div>
-                                <EllipsisHorizontalIcon className="customPostIcon" />
+                              <div className="flex flex-col items-start w-full">
+                                <span className="text-sm sm:text-base font-semibold">
+                                  {comment.data().isModerator === profile?.uid
+                                    ? profile?.displayName
+                                    : comment.data().displayName}{' '}
+                                  • @
+                                  {comment.data().isModerator === profile?.uid
+                                    ? profile?.user
+                                    : comment.data().user}
+                                </span>
+                                <span className="text-xs font-normal text-neutral-600 dark:text-neutral-300">
+                                  {moment(
+                                    new Date(comment.data().createdAt?.toDate())
+                                  ).fromNow()}
+                                </span>
                               </div>
                               <div className="text-xs sm:text-sm break-all mt-2">
                                 {comment.data().comment}
