@@ -2,12 +2,13 @@ import {
   collection,
   doc,
   getDocs,
+  onSnapshot,
   query,
   updateDoc,
   where,
 } from 'firebase/firestore';
 import { useRouter } from 'next/router';
-import React, { use, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { VscLoading } from 'react-icons/vsc';
 import Footer from '../components/Footer';
@@ -18,6 +19,7 @@ const Verification = () => {
   const router = useRouter();
   const [user] = useAuthState(auth);
   const [data, setData] = useState({ user: '' });
+  const [profile, setProfile] = useState();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -50,6 +52,24 @@ const Verification = () => {
     setLoading(false);
   };
 
+  useEffect(() => {
+    if (user) {
+      onSnapshot(doc(firestore, 'users', user.uid), (doc) => {
+        setProfile(doc.data());
+      });
+    } else {
+      setProfile();
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/');
+    } else if (profile?.user) {
+      router.push('/');
+    }
+  }, [user]);
+
   return (
     <>
       <Header />
@@ -72,8 +92,15 @@ const Verification = () => {
             />
             {error && <span className="text-red-500 text-xs">{error}</span>}
           </div>
-          <button onClick={userExists} className="bg-blue-500 text-white p-2 flex items-center justify-center">
-            {loading ? <VscLoading className='h-6 w-6 animate-spin'/> : "Confirmar"}
+          <button
+            onClick={userExists}
+            className="bg-blue-500 text-white p-2 flex items-center justify-center"
+          >
+            {loading ? (
+              <VscLoading className="h-6 w-6 animate-spin" />
+            ) : (
+              'Confirmar'
+            )}
           </button>
         </div>
       </main>

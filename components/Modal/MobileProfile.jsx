@@ -13,7 +13,6 @@ import {
   IoMdArrowDropdown,
   IoMdArrowDropup,
   IoMdClose,
-  IoMdExit,
   IoMdLink,
 } from 'react-icons/io';
 import { VscLoading } from 'react-icons/vsc';
@@ -110,8 +109,8 @@ const MobileProfile = () => {
               {profile?.photoURL && (
                 <Image
                   className="border customBorder rounded-full text-xs"
-                  src={profile?.photoURL}
-                  alt={profile?.user}
+                  src={profile.photoURL}
+                  alt={profile.user}
                   width={40}
                   height={40}
                 />
@@ -128,7 +127,7 @@ const MobileProfile = () => {
             </div>
           </Menu.Button>
         ) : (
-            <Signin title="Entrar agora" pY={4} width='full' />
+          <Signin title="Entrar agora" pY={4} width="full" />
         )}
       </Menu>
 
@@ -198,17 +197,17 @@ const MobileProfile = () => {
                         <EditProfile perfil={profile} title="Editar perfil" />
                       </div>
                     </div>
-                    <div>
+                    {profile?.photoURL && (
                       <Image
-                        className="h-32 w-full object-cover rounded-full"
-                        src={profile && profile.photoURL}
-                        alt={profile && profile.displayName}
+                        className="w-32 h-32 object-cover rounded-full"
+                        src={profile.photoURL}
+                        alt={profile.displayName}
                         width={400}
                         height={250}
                         sizes="100vw"
                         quality={100}
                       />
-                    </div>
+                    )}
                   </div>
 
                   <div className="flex flex-col w-full pt-4 mb-4">

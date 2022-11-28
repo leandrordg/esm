@@ -1,18 +1,11 @@
-/* eslint-disable @next/next/no-img-element */
-import { Menu, Transition } from '@headlessui/react';
-import { signOut } from 'firebase/auth';
-import { doc, getDoc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useTheme } from 'next-themes';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import {
   IoIosNotificationsOutline,
-  IoMdArrowDropdown,
-  IoMdArrowDropup,
-  IoMdExit,
   IoMdMoon,
   IoMdSearch,
   IoMdSunny,
@@ -89,9 +82,11 @@ export default function Header() {
         </div>
       </header>
 
-      <nav className="md:hidden fixed bottom-0 left-0 w-full bg-white dark:bg-neutral-900 border-t customBorder z-20">
-        <MobileProfile />
-      </nav>
+      {router.pathname !== '/verification' && (
+        <nav className="md:hidden fixed bottom-0 left-0 w-full bg-white dark:bg-neutral-900 border-t customBorder z-20">
+          <MobileProfile />
+        </nav>
+      )}
     </>
   );
 }

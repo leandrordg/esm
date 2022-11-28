@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { signOut } from 'firebase/auth';
 import {
   collection,
@@ -120,9 +119,8 @@ const Aside = () => {
                     className="h-40 w-full object-cover mb-4"
                     src={profile.photoURL}
                     alt={profile.displayName}
-                    width={500}
-                    height={500}
-                    sizes="100vw"
+                    width={600}
+                    height={600}
                     quality={100}
                   />
                 )}
@@ -135,7 +133,7 @@ const Aside = () => {
                 </button>
 
                 <div className="flex items-center justify-between w-full px-4">
-                  <div className='flex flex-col'>
+                  <div className="flex flex-col">
                     <p className="text-xs">{profile?.displayName}</p>
                     <p className="text-lg font-semibold">@{profile?.user}</p>
                   </div>
@@ -321,10 +319,12 @@ const Aside = () => {
                     Recomendamos imagens com resolucao de 1920x1080.
                   </p>
                 </div>
-                <img
+                <Image
                   className="h-16 w-16 rounded-lg"
                   src={selectedImage}
                   alt={selectedImage}
+                  width={400}
+                  height={250}
                 />
               </div>
             )}

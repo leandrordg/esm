@@ -10,6 +10,7 @@ import {
 } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadString } from 'firebase/storage';
 import 'moment/locale/pt-br';
+import Image from 'next/image';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { IoMdClose } from 'react-icons/io';
@@ -131,7 +132,10 @@ const PostForm = ({ type }) => {
       >
         <div className="relative">
           {type === 'home' ? (
-            <Menu.Button onClick={() => setIsOpen(true)} className='bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white w-full p-2 px-6 sm:px-8 rounded-lg text-xs sm:text-sm transition'>
+            <Menu.Button
+              onClick={() => setIsOpen(true)}
+              className="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white w-full p-2 px-6 sm:px-8 rounded-lg text-xs sm:text-sm transition"
+            >
               Criar agora
             </Menu.Button>
           ) : (
@@ -171,7 +175,7 @@ const PostForm = ({ type }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded-2xl bg-white dark:bg-neutral-900 p-6 text-left shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white dark:bg-neutral-900 p-6 text-left shadow-xl transition-all">
                   <div className="flex items-center justify-between">
                     <Dialog.Title
                       as="h3"
@@ -236,10 +240,13 @@ const PostForm = ({ type }) => {
                         {selectedFile && (
                           <div className="relative">
                             {selectedFile.includes('image') ? (
-                              <img
+                              <Image
                                 className="w-full max-h-[400px] object-cover"
                                 src={selectedFile}
                                 alt="Imagem corrompida ou muito grande."
+                                width={600}
+                                height={600}
+                                quality={100}
                               />
                             ) : (
                               <video
@@ -262,10 +269,13 @@ const PostForm = ({ type }) => {
                       <Tab.Panel>
                         {selectedBackground && (
                           <div className="relative">
-                            <img
+                            <Image
                               className="w-full max-h-[400px] object-cover"
                               src={selectedBackground}
                               alt="Imagem corrompida ou muito grande."
+                              width={600}
+                              height={600}
+                              quality={100}
                             />
                             <div className="absolute top-4 right-4">
                               <IoMdClose

@@ -9,7 +9,7 @@ export default function Footer() {
   return (
     <footer className="bg-white dark:bg-neutral-900">
       <div className="max-w-7xl mx-auto flex flex-col text-center md:text-left px-2">
-        <h1 className="text-base sm:text-lg md:text-xl font-semibold text-neutral-600 dark:text-neutral-300 pt-10">
+        <h1 className="text-base sm:text-lg font-semibold text-neutral-600 dark:text-neutral-300 pt-10">
           Alguns links utilizáveis
         </h1>
         <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 my-4 md:space-x-4">
@@ -25,7 +25,7 @@ export default function Footer() {
         </div>
 
         {/* Social medias */}
-        <span className="text-base sm:text-lg md:text-xl font-semibold text-neutral-600 dark:text-neutral-300">
+        <span className="text-base sm:text-lg font-semibold text-neutral-600 dark:text-neutral-300">
           Nossas redes sociais:
         </span>
         <div className="flex justify-center md:justify-start items-center space-x-4 overflow-x-scroll scrollbar-thin my-4">
@@ -34,7 +34,7 @@ export default function Footer() {
           <BsTwitter className="customFooterIcon" />
           <BsGithub className="customFooterIcon" />
         </div>
-        <span className="mr-4 font-semibold flex-1 text-center md:text-left py-4">
+        <span className="mr-4 font-semibold w-full text-center md:text-left py-4 pb-20 md:pb-4">
           © {new Date().getFullYear()} ESM, Inc. Todos os direitos reservados.
         </span>
       </div>

@@ -108,8 +108,8 @@ const Comments = ({ post }) => {
             <div className="fixed inset-0 bg-black bg-opacity-25" />
           </Transition.Child>
 
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
+          <div className="fixed w-full bottom-0 md:inset-0 md:flex md:justify-center md:items-center overflow-y-auto">
+            <div className="flex w-full items-center justify-center text-center md:max-w-2xl">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -119,8 +119,8 @@ const Comments = ({ post }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="flex flex-col bg-white dark:bg-neutral-900 p-10 rounded-xl w-full max-w-4xl">
-                  <div className="flex flex-col items-start space-y-4 w-full">
+                <Dialog.Panel className="flex flex-col bg-white dark:bg-neutral-900 p-10 w-full max-h-[650px] md:rounded-xl">
+                  <div className="flex flex-col items-start space-y-2 w-full">
                     <div className="flex w-full items-center space-x-2">
                       <div className="flex items-center space-x-2 w-full">
                         <Dialog.Title className="text-xl sm:text-2xl font-semibold text-center">
@@ -134,34 +134,7 @@ const Comments = ({ post }) => {
                       />
                     </div>
 
-                    <form
-                      onSubmit={(e) => {
-                        e.preventDefault();
-                      }}
-                      className="flex items-center w-full h-10 rounded-full border customBorder overflow-hidden"
-                    >
-                      <input
-                        disabled={!user}
-                        placeholder={
-                          user
-                            ? `Comentar como ${user.displayName}`
-                            : 'Entre para comentar'
-                        }
-                        type="text"
-                        value={comment}
-                        onChange={(e) => setComment(e.target.value)}
-                        className="h-full w-full outline-none bg-transparent px-4"
-                      />
-                      <button
-                        disabled={loading || !user}
-                        onClick={sendComment}
-                        className="bg-blue-500 hover:bg-blue-600 text-white h-full px-4 transition"
-                      >
-                        <IoMdSend />
-                      </button>
-                    </form>
-
-                    <div className="divide-y divide-neutral-100 dark:divide-neutral-800 w-full">
+                    <div className="w-full max-h-[500px] overflow-y-scroll scrollbar-thin">
                       {comments?.length > 0 &&
                         comments.map((comment) => (
                           <div
@@ -181,25 +154,49 @@ const Comments = ({ post }) => {
                               />
                             </Link>
                             <div className="flex flex-col items-start text-left mx-2 w-full">
-                              <div className="text-sm sm:text-base font-semibold flex items-center w-full">
-                                <span className="w-full">
-                                  @{comment.data().user} •{' '}
-                                  <span className="text-xs font-normal">
+                              <div className="flex items-start w-full">
+                                <div className="flex flex-col items-start w-full">
+                                  <span className='text-sm sm:text-base font-semibold'>
+                                    {comment.data().displayName} • @
+                                    {comment.data().user}
+                                  </span>
+                                  <span className="text-xs font-normal text-neutral-600 dark:text-neutral-300">
                                     {moment(
                                       new Date(
                                         comment.data().createdAt?.toDate()
                                       )
                                     ).fromNow()}
                                   </span>
-                                </span>
+                                </div>
                                 <EllipsisHorizontalIcon className="customPostIcon" />
                               </div>
-                              <span className="text-xs sm:text-sm break-all">
+                              <div className="text-xs sm:text-sm break-all mt-2">
                                 {comment.data().comment}
-                              </span>
+                              </div>
                             </div>
                           </div>
                         ))}
+                    </div>
+                    <div className="flex items-center w-full h-10">
+                      <input
+                        disabled={!user}
+                        placeholder={
+                          user
+                            ? `Comentar como ${user.displayName}`
+                            : 'Entre para comentar'
+                        }
+                        type="text"
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                        className="px-6 h-full outline-none w-full rounded-l-lg"
+                      />
+                      <button
+                        disabled={loading || !user || !comment}
+                        onClick={sendComment}
+                        className="bg-blue-500 hover:bg-blue-600 text-white h-full px-4 transition rounded-r-lg"
+                      >
+                        <IoMdSend />
+                      </button>
                     </div>
                   </div>
                 </Dialog.Panel>

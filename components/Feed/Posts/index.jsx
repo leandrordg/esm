@@ -1,18 +1,27 @@
-/* eslint-disable @next/next/no-img-element */
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 import moment from 'moment/moment';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { BsHeart } from 'react-icons/bs';
-import { auth } from '../../../services/firebase';
+import { auth, firestore } from '../../../services/firebase';
 import Comments from '../../Modal/Comments';
 import AddLike from '../../Modal/AddLike';
 import DeletePost from '../../Modal/Delete';
+import { doc, onSnapshot } from 'firebase/firestore';
 
 const Posts = ({ post }) => {
   const [user] = useAuthState(auth);
+  const [profile, setProfile] = useState();
+
+  useEffect(
+    () =>
+      onSnapshot(doc(firestore, 'users', post?.creatorId), (doc) => {
+        setProfile(doc.data());
+      }),
+    []
+  );
 
   return (
     <div
@@ -34,15 +43,20 @@ const Posts = ({ post }) => {
         {/* Left side */}
         <div className="flex flex-col items-center text-sm md:text-base p-1 md:p-2 space-y-2">
           <div className="group relative">
-            <img
-              className="rounded-full w-8 sm:w-10 cursor-pointer border-2 customBorder text-xs"
-              src={post.photoURL}
-              alt={post.displayName}
-            />
-            <Link href={`/${post.user}`}>
+            {post?.photoURL && (
+              <Image
+                className="rounded-full w-8 sm:w-10 cursor-pointer border-2 customBorder text-xs"
+                src={post.photoURL}
+                alt={post.displayName}
+                width={100}
+                height={100}
+                quality={100}
+              />
+            )}
+            <Link href={`/${profile?.user}`}>
               <div className="absolute hidden top-0 left-10 bg-white dark:bg-neutral-900 border customBorder rounded-lg p-2 z-20 group-hover:flex flex-col min-w-[150px]">
-                <p className="text-xs">{post.displayName}</p>
-                <p className="font-semibold">@{post.user}</p>
+                <p className="text-xs">{profile?.displayName}</p>
+                <p className="font-semibold">@{profile?.user}</p>
                 <p className="text-xs text-neutral-600 dark:text-neutral-400">
                   {moment(new Date(post.createdAt?.toDate())).fromNow()}.
                 </p>
@@ -75,10 +89,12 @@ const Posts = ({ post }) => {
                     {post.title}
                   </div>
                 )}
-                <img
+                <Image
                   className="w-full max-h-[600px] object-cover"
                   src={post.fileURL}
                   alt="Carregando..."
+                  width={600}
+                  height={600}
                 />
               </div>
             ) : (
@@ -87,7 +103,7 @@ const Posts = ({ post }) => {
                   controls
                   className="w-full h-full max-h-[600px] object-cover outline-none"
                   src={post.fileURL}
-                  alt="video"
+                  alt="Carregando..."
                 />
               </div>
             )

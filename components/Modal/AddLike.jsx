@@ -67,7 +67,7 @@ const AddLike = ({ post }) => {
   return (
     <button
       onClick={likePost}
-      disabled={loading}
+      disabled={loading || !user}
       className={`flex flex-col space-y-1 items-center hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-xl transition cursor-pointer ${
         post.background && 'bg-white dark:bg-neutral-900'
       }`}

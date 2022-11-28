@@ -26,6 +26,7 @@ import ProfileAside from '../components/Feed/Aside/profile';
 import Posts from '../components/Feed/Posts';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import EditProfile from '../components/Modal/EditProfile';
 import SkeletonFeed from '../components/Skeleton/Feed';
 import { auth, firestore } from '../services/firebase';
 
@@ -35,13 +36,12 @@ const UserPage = () => {
   const [user] = useAuthState(auth);
   const [myProfile, setMyProfile] = useState();
   const [profile, setProfile] = useState();
-  const [posts, loading] = useCollection(
-    collection(firestore, 'posts'),
-    where('user', '==', userId),
-    orderBy('createdAt', 'desc')
-  );
+  const [posts, setPosts] = useState();
+  const [loading, setLoading] = useState(false);
 
   const fetchProfile = async () => {
+    setLoading(true);
+
     const collectionRef = collection(firestore, 'users');
     const q = query(collectionRef, where('user', '==', userId));
 
@@ -49,6 +49,8 @@ const UserPage = () => {
     setProfile(
       querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
     );
+
+    setLoading(false);
   };
 
   const fetchMyUser = async () => {
@@ -69,14 +71,26 @@ const UserPage = () => {
     }
   }, [user]);
 
+  useEffect(
+    () =>
+      onSnapshot(
+        query(
+          collection(firestore, 'posts'),
+          where('user', '==', userId),
+          orderBy('createdAt', 'desc')
+        ),
+        (snapshot) => {
+          setPosts(snapshot);
+        }
+      ),
+    [userId]
+  );
+
   return (
     <>
       <Head>
         <title>ESM - @{userId}</title>
-        <meta
-          name="description"
-          content="ESM - Página de Perfil do Usuário"
-        />
+        <meta name="description" content="ESM - Página de Perfil do Usuário" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -99,7 +113,7 @@ const UserPage = () => {
 
       <main className="flex flex-col md:flex-row max-w-7xl mx-auto md:space-y-0 md:space-x-5 lg:space-x-10 xl:space-x-20 2xl:space-x-32 sm:p-4 my-2">
         <div className="flex flex-col w-full max-w-3xl space-y-2">
-          <div className="flex items-center justify-between bg-white dark:bg-neutral-900 p-2 rounded-lg">
+          <div className="flex items-center justify-between bg-white dark:bg-neutral-900 p-2 sm:rounded-lg">
             <div className="flex flex-col">
               <span className="text-xs">Vendo a página de:</span>
               <span className="text-2xl font-semibold leading-tight">
@@ -134,7 +148,7 @@ const UserPage = () => {
                     0 seguidores
                   </span>
                   <span className="py-2 text-sm">{profile[0].bio}</span>
-                  {profile[0].social && (
+                  {profile[0]?.social && (
                     <div className="flex items-center space-x-2 overflow-x-scroll scrollbar-thin">
                       {profile[0].social.twitter && (
                         <Link
@@ -166,9 +180,13 @@ const UserPage = () => {
                   )}
                 </div>
               </div>
-              <button className="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white px-6 py-1 w-full rounded-lg transition mt-2">
-                Seguir
-              </button>
+              <div className="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white px-6 py-1 w-full rounded-lg transition mt-2">
+                {profile[0]?.user === myProfile?.user ? (
+                  <EditProfile title="Editar perfil" perfil={myProfile} />
+                ) : (
+                  'Seguir'
+                )}
+              </div>
             </div>
           )}
 
