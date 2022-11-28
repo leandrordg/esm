@@ -2,22 +2,17 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import {
-  IoIosNotificationsOutline,
-  IoMdMoon,
-  IoMdSearch,
-  IoMdSunny,
-} from 'react-icons/io';
+import { IoMdMoon, IoMdSunny } from 'react-icons/io';
 import { auth, firestore } from '../services/firebase';
 import MobileProfile from './Modal/MobileProfile';
 import PostForm from './Modal/PostForm';
+import Search from './Modal/Search';
 import Signin from './Modal/Signin';
 
 export default function Header() {
   const [user] = useAuthState(auth);
-  const [profile, setProfile] = useState();
   const router = useRouter();
   const { systemTheme, theme, setTheme } = useTheme();
 
@@ -66,18 +61,11 @@ export default function Header() {
             <span className="text-3xl font-semibold">ESM</span>
           </Link>
           <div className="flex items-center space-x-2">
-            <IoMdSearch className="customHeaderIcon" />
+            <Search />
 
             {renderThemeChanger()}
 
-            {user ? (
-              <div className="flex items-center space-x-1">
-                <PostForm />
-                {/* <IoIosNotificationsOutline className="customHeaderIcon" /> */}
-              </div>
-            ) : (
-              <Signin title="Entrar" />
-            )}
+            {user ? <PostForm /> : <Signin title="Entrar" />}
           </div>
         </div>
       </header>

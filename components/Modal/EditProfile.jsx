@@ -82,22 +82,34 @@ const EditProfile = ({ title, perfil }) => {
       const q = query(collectionRef, where('user', '==', formData.user));
       const querySnap = await getDocs(q);
 
-      if (querySnap.docs.length > 0) {
+      if (querySnap.docs.length === 0) {
+        try {
+          await updateDoc(docRef, formData);
+
+          setTimeout(() => {
+            setError('');
+            setIsOpen(false);
+            setFormData();
+          }, 1000);
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
         setError('Este usuário já existe. Tente outro novamente.');
       }
-    }
+    } else {
+      try {
+        await updateDoc(docRef, formData);
 
-    try {
-      await updateDoc(docRef, formData);
-    } catch (error) {
-      console.log(error);
+        setTimeout(() => {
+          setError('');
+          setIsOpen(false);
+          setFormData();
+        }, 1000);
+      } catch (error) {
+        console.log(error);
+      }
     }
-
-    setTimeout(() => {
-      setError('');
-      setIsOpen(false);
-      setFormData();
-    }, 1000);
 
     setLoading(false);
   };
@@ -152,8 +164,8 @@ const EditProfile = ({ title, perfil }) => {
                     </div>
 
                     {/* <p className='text-neutral-600 dark:text-neutral-300'>Ao alterar o nome de usuário, deverá esperar pelo menos 30 dias para alterar novamente.</p> */}
-                    <div className="flex items-end space-x-2 sm:space-x-4 md:space-x-8 w-full">
-                      <div className="flex flex-[2] flex-col items-start space-y-2  w-full">
+                    <div className="w-full">
+                      <div className="flex flex-col items-start space-y-2">
                         <div className="flex flex-col w-full items-start">
                           <span className="text-sm">Nome</span>
                           <input
@@ -185,7 +197,7 @@ const EditProfile = ({ title, perfil }) => {
                         </div>
 
                         <div className="flex flex-col w-full items-start overflow-hidden">
-                          <span>Biografia</span>
+                          <span className="text-sm">Biografia</span>
                           <textarea
                             name="bio"
                             placeholder={
@@ -194,61 +206,62 @@ const EditProfile = ({ title, perfil }) => {
                                 : 'Digite aqui a sua biografia'
                             }
                             onChange={handleChange}
-                            className="rounded-lg border customBorder bg-white dark:bg-neutral-700 w-full p-2 outline-none"
+                            className="rounded-lg border customBorder bg-white dark:bg-neutral-700 w-full p-2 outline-none min-h-[70px]"
                           />
                         </div>
-                      </div>
-                      <div className="flex-1 h-full mt-4 relative">
+
                         {perfil?.photoURL && (
-                          <>
+                          <div className="flex w-full justify-between space-x-2 sm:space-x-4 md:space-x-8 py-4">
+                            <div className="flex items-start flex-col relative">
+                              <span className="text-lg">Foto de perfil</span>
+                              <div className="flex flex-col items-start">
+                                <input
+                                  ref={inputRef}
+                                  type="file"
+                                  accept="image/*"
+                                  onChange={onSelectFile}
+                                  hidden
+                                />
+                                {selectedImage ? (
+                                  <>
+                                    <button
+                                      onClick={updateProfilePicture}
+                                      className="text-blue-500 hover:underline"
+                                    >
+                                      {loading ? (
+                                        <VscLoading className="h-6 w-6 animate-spin" />
+                                      ) : (
+                                        'Salvar foto de perfil'
+                                      )}
+                                    </button>
+                                    <button
+                                      className="text-red-500 hover:underline"
+                                      onClick={() => setSelectedImage('')}
+                                    >
+                                      Remover foto
+                                    </button>
+                                  </>
+                                ) : (
+                                  <button
+                                    onClick={() => inputRef.current.click()}
+                                    className="text-blue-500 hover:underline"
+                                  >
+                                    Alterar foto de perfil
+                                  </button>
+                                )}
+                              </div>
+                            </div>
                             <Image
-                              className="w-full h-64 rounded-lg object-cover"
+                              className="w-32 h-32 rounded-lg object-cover"
                               src={selectedImage || perfil?.photoURL}
                               alt={selectedImage || perfil?.displayName}
                               width={100}
                               height={100}
                               quality={100}
                             />
-                            {selectedImage && (
-                              <button
-                                onClick={() => setSelectedImage('')}
-                                className="absolute top-2 right-2"
-                              >
-                                <IoMdClose className="customModalIcon" />
-                              </button>
-                            )}
-                          </>
+                          </div>
                         )}
                       </div>
-                    </div>
-
-                    <div className="my-4">
-                      <input
-                        ref={inputRef}
-                        type="file"
-                        accept="image/*"
-                        onChange={onSelectFile}
-                        hidden
-                      />
-                      {selectedImage ? (
-                        <button
-                          onClick={updateProfilePicture}
-                          className="text-blue-500 hover:underline"
-                        >
-                          {loading ? (
-                            <VscLoading className="h-6 w-6 animate-spin" />
-                          ) : (
-                            'Salvar foto de perfil'
-                          )}
-                        </button>
-                      ) : (
-                        <button
-                          onClick={() => inputRef.current.click()}
-                          className="text-blue-500 hover:underline"
-                        >
-                          Alterar foto de perfil
-                        </button>
-                      )}
                     </div>
 
                     <button

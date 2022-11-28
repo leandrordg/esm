@@ -31,4 +31,8 @@
   .customProfileIcon {
     @apply p-2 h-9 w-9 sm:h-10 sm:w-10 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-xl transition cursor-pointer;
   }
+
+  .customSearchField {
+    @apply flex items-center space-x-1 transition rounded-full
+  }
 }

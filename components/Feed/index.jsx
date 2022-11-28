@@ -143,7 +143,7 @@ const FeedContent = () => {
             </div>
           )}
         </div>
-        <Aside />
+        <Aside profile={profile && profile} />
       </main>
     </>
   );

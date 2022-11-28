@@ -56,8 +56,8 @@ const AddLike = ({ post }) => {
 
   useEffect(() => {
     if (user) {
-      onSnapshot(doc(firestore, 'users', user.uid), (doc) => {
-        setProfile(doc.data());
+      onSnapshot(doc(firestore, 'users', user.uid), (snapshot) => {
+        setProfile(snapshot.data());
       });
     } else {
       setProfile();

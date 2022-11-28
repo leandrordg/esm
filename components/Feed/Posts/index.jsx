@@ -29,9 +29,9 @@ const Posts = ({ post }) => {
     >
       {post?.background && (
         <Image
-          className="absolute w-full h-full object-cover -z-10"
           src={post?.background}
           alt={post?.background}
+          className="absolute w-full h-full object-cover -z-10"
           priority
           width={200}
           height={200}
