@@ -108,11 +108,12 @@ const MobileProfile = () => {
             <div className="flex items-center p-2 space-x-2">
               {profile?.photoURL && (
                 <Image
-                  className="border customBorder rounded-full text-xs"
+                  className="border customBorder rounded-full text-xs w-10 h-10"
                   src={profile.photoURL}
                   alt={profile.user}
-                  width={40}
-                  height={40}
+                  width={100}
+                  height={100}
+                  quality={100}
                 />
               )}
               <div className="flex flex-col items-start w-full">

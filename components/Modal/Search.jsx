@@ -62,7 +62,7 @@ const Search = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="flex flex-col items-start bg-white dark:bg-neutral-800 w-full h-screen md:h-[650px] md:rounded-xl overflow-hidden">
+                <Dialog.Panel className="flex flex-col items-start bg-white dark:bg-neutral-800 w-full h-[650px] md:rounded-xl overflow-hidden">
                   <div className="flex flex-col w-full">
                     <div className="flex items-center h-14 bg-neutral-100 dark:bg-neutral-900 w-full">
                       <button
@@ -93,7 +93,7 @@ const Search = () => {
                           >
                             <div className="flex items-center space-x-2 sm:space-x-4 md:space-x-6 w-full">
                               <Image
-                                className="w-16 h-16 rounded-full"
+                                className="w-12 h-12 sm:w-16 sm:h-16 rounded-full"
                                 src={user.data()?.photoURL}
                                 alt={user.data()?.displayName}
                                 width={200}
@@ -104,7 +104,7 @@ const Search = () => {
                                 <span className="text-xs">
                                   {user.data()?.displayName}
                                 </span>
-                                <span className="text-lg font-semibold">
+                                <span className="text-base sm:text-lg font-semibold">
                                   @{user.data()?.user}
                                 </span>
                               </div>
