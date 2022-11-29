@@ -16,7 +16,7 @@ const Search = () => {
 
   useEffect(() => {
     const newFilter = value?.docs.filter((value) => {
-      return value.data().user.toLowerCase().includes(searchTerm.toLowerCase());
+      return value.data().user?.toLowerCase().includes(searchTerm?.toLowerCase());
     });
 
     setFilteredData(newFilter);

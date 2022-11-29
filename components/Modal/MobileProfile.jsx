@@ -2,6 +2,7 @@ import { Dialog, Menu, Transition } from '@headlessui/react';
 import { signOut } from 'firebase/auth';
 import {
   collection,
+  deleteField,
   doc,
   onSnapshot,
   query,
