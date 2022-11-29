@@ -150,7 +150,7 @@ const Comments = ({ post }) => {
                               className="min-h-[40px] min-w-[40px]"
                             >
                               <Image
-                                className="rounded-full cursor-pointer"
+                                className="rounded-full cursor-pointer w-14 h-12 object-cover"
                                 src={
                                   comment.data().isModerator === profile?.uid
                                     ? profile?.photoURL

@@ -62,7 +62,7 @@ const Search = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="flex flex-col items-start bg-white dark:bg-neutral-800 w-full h-[650px] md:rounded-xl overflow-hidden">
+                <Dialog.Panel className="flex flex-col items-start bg-white dark:bg-neutral-800 w-full h-[600px] md:rounded-xl overflow-hidden">
                   <div className="flex flex-col w-full">
                     <div className="flex items-center h-14 bg-neutral-100 dark:bg-neutral-900 w-full">
                       <button
@@ -80,7 +80,7 @@ const Search = () => {
                     </div>
 
                     {filteredData?.length != 0 && searchTerm.length != 0 && (
-                      <div className="flex flex-col items-start">
+                      <div className="flex flex-col items-start h-[600px] overflow-y-scroll scrollbar-thin">
                         <span className="text-base sm:text-lg font-semibold m-4 text-neutral-600 dark:text-neutral-300">
                           Encontrado {filteredData?.length} resultados.
                         </span>
@@ -89,11 +89,11 @@ const Search = () => {
                           <Link
                             href={`/${user.data()?.user}`}
                             key={user.data()?.uid}
-                            className="flex items-center p-4 border-b customBorder w-full hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                            className="flex items-center p-2 px-4 border-b customBorder w-full hover:bg-neutral-100 dark:hover:bg-neutral-700"
                           >
-                            <div className="flex items-center space-x-2 sm:space-x-4 md:space-x-6 w-full">
+                            <div className="flex items-center space-x-2 sm:space-x-4 w-full">
                               <Image
-                                className="w-12 h-12 sm:w-16 sm:h-16 rounded-full"
+                                className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover"
                                 src={user.data()?.photoURL}
                                 alt={user.data()?.displayName}
                                 width={200}

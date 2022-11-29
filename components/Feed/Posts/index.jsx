@@ -43,7 +43,7 @@ const Posts = ({ post }) => {
           <div className="group relative">
             {post?.photoURL && (
               <Image
-                className="rounded-full w-8 sm:w-10 h-8 sm:h-10 cursor-pointer border-2 customBorder text-xs"
+                className="rounded-full object-cover w-8 sm:w-10 h-8 sm:h-10 cursor-pointer border-2 customBorder text-xs"
                 src={profile?.photoURL}
                 alt={profile?.displayName}
                 width={100}

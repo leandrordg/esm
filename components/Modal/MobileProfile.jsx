@@ -1,6 +1,12 @@
 import { Dialog, Menu, Transition } from '@headlessui/react';
 import { signOut } from 'firebase/auth';
-import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  onSnapshot,
+  query,
+  updateDoc,
+} from 'firebase/firestore';
 import { getDownloadURL, ref, uploadString } from 'firebase/storage';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -26,6 +32,7 @@ const MobileProfile = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [profile, setProfile] = useState();
   const [selectedImage, setSelectedImage] = useState('');
+  const [followers, setFollowers] = useState();
   const [loading, setLoading] = useState(false);
   const imageRef = useRef();
 
@@ -99,6 +106,18 @@ const MobileProfile = () => {
       setProfile();
     }
   }, [user]);
+
+  useEffect(() => {
+    if (profile) {
+      const unsub = onSnapshot(
+        query(collection(firestore, 'users', profile.uid, 'followers')),
+        (snapshot) => setFollowers(snapshot.docs)
+      );
+      return () => {
+        unsub();
+      };
+    }
+  }, [profile]);
 
   return (
     <>
@@ -180,7 +199,10 @@ const MobileProfile = () => {
                       </div>
 
                       <span className="text-xs">
-                        <span className="font-semibold">0</span> seguidores
+                        <span className="font-semibold">
+                          {followers ? followers.length : '0'}
+                        </span>{' '}
+                        seguidores
                       </span>
 
                       <div className="flex flex-wrap">

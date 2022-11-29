@@ -82,9 +82,9 @@ const MobileAside = ({ profile, myProfile }) => {
 
   return (
     <div className="flex flex-col bg-white dark:bg-neutral-900 p-4 md:hidden sm:rounded-lg">
-      <div className="flex items-start w-full">
+      <div className="flex items-center w-full">
         <Image
-          className="w-20 h-20 sm:w-32 sm:h-32 rounded-lg"
+          className="w-24 h-20 sm:w-40 sm:h-32 rounded-full object-cover"
           src={profile.photoURL}
           alt={profile.displayName}
           width={200}

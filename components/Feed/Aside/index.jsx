@@ -150,8 +150,8 @@ const Aside = ({ profile }) => {
               <div className="flex flex-wrap px-4 my-2">
                 {profile?.bio ? (
                   <span className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300">
-                  {profile.bio}
-                </span>
+                    {profile.bio}
+                  </span>
                 ) : (
                   <span className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300">
                     Edite seu perfil para alterar a sua biografia
@@ -258,13 +258,16 @@ const Aside = ({ profile }) => {
                     className="flex items-center space-x-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 px-2 py-1 rounded-xl transition cursor-pointer"
                   >
                     {/* Left */}
-                    <Image
-                      className="rounded-full"
-                      src={user.data().photoURL}
-                      alt={user.data().displayName}
-                      width={40}
-                      height={40}
-                    />
+                    <div className='relative w-[64px] h-[45px]'>
+                      <Image
+                        className="rounded-full object-cover"
+                        src={user.data().photoURL}
+                        alt={user.data().displayName}
+                        quality={100}
+                        fill
+                      />
+                    </div>
+
                     {/* Center */}
                     <div className="flex flex-col w-full">
                       <span className="text-sm">{user.data().displayName}</span>
