@@ -62,7 +62,7 @@ const Search = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="flex flex-col items-start bg-white dark:bg-neutral-800 w-full h-[600px] md:rounded-xl overflow-hidden">
+                <Dialog.Panel className="flex flex-col items-start bg-white dark:bg-neutral-800 w-full max-h-[600px] md:rounded-xl overflow-hidden">
                   <div className="flex flex-col w-full">
                     <div className="flex items-center h-14 bg-neutral-100 dark:bg-neutral-900 w-full">
                       <button
@@ -80,7 +80,7 @@ const Search = () => {
                     </div>
 
                     {filteredData?.length != 0 && searchTerm.length != 0 && (
-                      <div className="flex flex-col items-start h-[600px] overflow-y-scroll scrollbar-thin">
+                      <div className="flex flex-col items-start h-fit overflow-y-scroll scrollbar-thin">
                         <span className="text-base sm:text-lg font-semibold m-4 text-neutral-600 dark:text-neutral-300">
                           Encontrado {filteredData?.length} resultados.
                         </span>
