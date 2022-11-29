@@ -83,14 +83,14 @@ const MobileAside = ({ profile, myProfile }) => {
   return (
     <div className="flex flex-col bg-white dark:bg-neutral-900 p-4 md:hidden sm:rounded-lg">
       <div className="flex items-center w-full">
-        <Image
-          className="w-24 h-20 sm:w-40 sm:h-32 rounded-full object-cover"
-          src={profile.photoURL}
-          alt={profile.displayName}
-          width={200}
-          height={200}
-          quality={100}
-        />
+          <Image
+            className="rounded-full object-cover w-24 h-20 sm:w-32 sm:h-28"
+            src={profile.photoURL}
+            alt={profile.displayName}
+            width={200}
+            height={200}
+            quality={100}
+          />
         <div className="flex flex-col mx-4 w-full">
           <span className="text-xs sm:text-sm">{profile.displayName}</span>
           <span className="text-lg sm:text-xl font-semibold">
