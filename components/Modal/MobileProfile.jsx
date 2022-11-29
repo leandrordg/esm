@@ -124,20 +124,25 @@ const MobileProfile = () => {
       <Menu className="w-full">
         {user ? (
           <Menu.Button onClick={() => setIsOpen(true)}>
-            <div className="flex items-center p-2 space-x-2">
-              {profile?.photoURL && (
-                <Image
-                  className="rounded-full text-xs w-14 sm:w-12 h-10 object-cover"
-                  src={profile.photoURL}
-                  alt={profile.user}
-                  width={100}
-                  height={100}
-                  quality={100}
-                />
-              )}
-              <div className="flex flex-col items-start w-full">
-                <span className="text-xs">Meu perfil</span>
-                <span className="text-sm font-semibold">@{profile?.user}</span>
+            <div className="flex items-center p-2 w-full">
+              <div className='w-full flex items-center space-x-2'>
+                {profile?.photoURL && (
+                  <Image
+                    className="w-10 h-10 object-cover rounded-full"
+                    src={profile.photoURL}
+                    alt={profile.displayName}
+                    width={400}
+                    height={250}
+                    sizes="100vw"
+                    quality={100}
+                  />
+                )}
+                <div className="flex flex-col items-start">
+                  <span className="text-xs">Meu perfil</span>
+                  <span className="text-sm font-semibold">
+                    @{profile?.user}
+                  </span>
+                </div>
               </div>
               {isOpen ? (
                 <IoMdArrowDropdown className="customHeaderIcon" />
